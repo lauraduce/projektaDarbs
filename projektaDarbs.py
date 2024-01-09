@@ -29,9 +29,9 @@ urlDM = "https://dmarket.com/ingame-items/item-list/csgo-skins"
 
 driver.get(urlDM)
 time.sleep(2)
-SearchDM = driver.find_element(By.CLASS_NAME, "o-filter__searchInput")
-SearchDM.clear()
-SearchDM.send_keys(item)
+searchDM = driver.find_element(By.CLASS_NAME, "o-filter__searchInput")
+searchDM.clear()
+searchDM.send_keys(item)
 time.sleep(2)
 
 
@@ -40,7 +40,7 @@ priceGetDM = priceFindDM.get_attribute('innerText')
 priceDM = float(re.sub('[^0-9.]', '', priceGetDM))
 print(priceDM)
 
-commissionDm = "3.85% + 0.27€"
+commissionDm = "3.85% + €0.27"
 
 withoutCommissionDM = round((priceDM/exchangeRate), 2)
 withCommissionDM = round(((withoutCommissionDM)*1.0385 + 0.27), 2)
@@ -59,38 +59,103 @@ print(DMarket)
 
 CSFloat = []
 
-urlCSFloat = "https://csfloat.com/"
+urlCSF = "https://csfloat.com/"
 
-driver.get(urlCSFloat)
+driver.get(urlCSF)
 time.sleep(2)
-changeCurrencyCSFloat = driver.find_element(By.XPATH, '//*[@id="mat-select-0"]/div/div[2]/div')
-changeCurrencyCSFloat.click()
-CurrencyCSFloatToUSD = driver.find_element(By.XPATH, '//*[@id="mat-option-0"]/span')
-CurrencyCSFloatToUSD.click()
-searchCSFloat = driver.find_element(By.ID, "mat-input-0")
+changeCurrencyCSF = driver.find_element(By.XPATH, '//*[@id="mat-select-0"]/div/div[2]/div')
+changeCurrencyCSF.click()
+CurrencyCSFToUSD = driver.find_element(By.XPATH, '//*[@id="mat-option-0"]/span')
+CurrencyCSFToUSD.click()
+searchCSF = driver.find_element(By.ID, "mat-input-0")
 time.sleep(2)
-searchCSFloat.clear()
-searchCSFloat.send_keys(item)
-searchCSFloat.send_keys(Keys.ENTER)
+searchCSF.clear()
+searchCSF.send_keys(item)
+searchCSF.send_keys(Keys.ENTER)
 time.sleep(2)
 
-priceFindCSFloat = driver.find_element(By.CLASS_NAME, "price.ng-star-inserted")
-priceGetCSFloat = priceFindCSFloat.get_attribute('innerText')
-priceCSFloat = float(re.sub('[^0-9.]', '', priceGetCSFloat))
+priceFindCSF = driver.find_element(By.CLASS_NAME, "price.ng-star-inserted")
+priceGetCSF = priceFindCSF.get_attribute('innerText')
+priceCSFloat = float(re.sub('[^0-9.]', '', priceGetCSF))
 
-commissionCSFloat = "2.8% + 0.27€"
+commissionCSF = "2.8% + €0.27"
 
-withoutCommissionCSFloat = round((priceCSFloat/exchangeRate),2)
-withCommissionCSFloat = round(((withoutCommissionCSFloat)*1.028 + 0.27),2)
+withoutCommissionCSF = round((priceCSFloat/exchangeRate),2)
+withCommissionCSF = round(((withoutCommissionCSF)*1.028 + 0.27),2)
 
-minCSFloat = 5/exchangeRate
-maxCSFloat = 10000/exchangeRate
+minCSF = 5/exchangeRate
+maxCSF = 10000/exchangeRate
 
-if minCSFloat<=withoutCommissionCSFloat<=maxCSFloat:
-    limitsCSFloat = "+"
+if minCSF<=withoutCommissionCSF<=maxCSF:
+    limitsCSF = "+"
 else:
-    limitsCSFloat = "-"
+    limitsCSF = "-"
 
-CSFloat.extend([item, withoutCommissionCSFloat, commissionCSFloat, withCommissionCSFloat, limitsCSFloat])
+CSFloat.extend([item, withoutCommissionCSF, commissionCSF, withCommissionCSF, limitsCSF])
 
 print(CSFloat)
+
+GamerPay = []
+
+urlGP = "https://gamerpay.gg/"
+driver.get(urlGP)
+time.sleep(2)
+acceptCookiesGP= driver.find_element(By.ID,"CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll")
+acceptCookiesGP.click()
+time.sleep(2)
+searchGP = driver.find_element(By.ID, "searchBar")
+time.sleep(2)
+searchGP.send_keys(item)
+searchGP.send_keys(Keys.ENTER)
+time.sleep(8)
+
+priceFindGP = driver.find_element(By.CLASS_NAME, "ItemCardNewBody_pricePrimary__Tpkw7")
+priceGetGP = priceFindGP.get_attribute('innerText')
+priceGP = float(re.sub('[^0-9.]', '', priceGetGP))
+
+commissionGP = "5% + €0.70"
+
+withoutCommissionGP = priceGP
+withCommissionGP = round(((withoutCommissionGP)*1.05 + 0.7),2)
+
+limitsGP = "+"
+
+GamerPay.extend([item,withoutCommissionGP, commissionGP, withCommissionGP, limitsGP])
+
+print(GamerPay)
+
+SkinBaron = []
+
+urlSB = "https://skinbaron.de/en"
+driver.get(urlSB)
+time.sleep(2)
+acceptCookiesSB = driver.find_element(By.ID,"onetrust-accept-btn-handler")
+acceptCookiesSB.click()
+time.sleep(2)
+searchSB = driver.find_element(By.CSS_SELECTOR, 'input[pathtodata="variants"]')
+time.sleep(2)
+searchSB.send_keys(item)
+searchSB.send_keys(Keys.ENTER)
+time.sleep(4)
+
+priceFindSB = driver.find_element(By.XPATH, '//*[@id="offer-container"]/ul/li[1]/sb-offer-card/div/div/div[3]/div/div/span[3]')
+priceGetSB = priceFindSB.get_attribute('innerText')
+priceSB = float(re.sub('[^0-9.]', '', priceGetSB))
+
+commissionSB = "5% + €0.35"
+
+withoutCommissionSB = priceSB
+withCommissionSB = round(((withoutCommissionSB)*1.05 + 0.35),2)
+
+minSB = 1
+maxSB = 7500
+
+if 1<=withoutCommissionSB<=7500:
+    limitsSB = "+"
+else:
+    limitsSB = "-"
+
+SkinBaron.extend([item, withoutCommissionSB, commissionSB, withCommissionSB, limitsSB])
+
+print(SkinBaron)
+
