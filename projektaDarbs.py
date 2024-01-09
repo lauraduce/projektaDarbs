@@ -49,11 +49,11 @@ minDM = 1/exchangeRate
 maxDM = 500/exchangeRate
 
 if minDM<=withoutCommissionDM<=maxDM:
-    limitsDM = "+"
+    limitsDM = "In"
 else:
-    limitsDM = "-"
+    limitsDM = "Out"
 
-DMarket.extend([item, withoutCommissionDM, commissionDm, withCommissionDM, limitsDM])
+DMarket.extend(["DMarket: ", withoutCommissionDM, commissionDm, withCommissionDM, limitsDM])
 
 print(DMarket)
 
@@ -87,11 +87,11 @@ minCSF = 5/exchangeRate
 maxCSF = 10000/exchangeRate
 
 if minCSF<=withoutCommissionCSF<=maxCSF:
-    limitsCSF = "+"
+    limitsCSF = "In"
 else:
-    limitsCSF = "-"
+    limitsCSF = "Out"
 
-CSFloat.extend([item, withoutCommissionCSF, commissionCSF, withCommissionCSF, limitsCSF])
+CSFloat.extend(["CSFloat: ", withoutCommissionCSF, commissionCSF, withCommissionCSF, limitsCSF])
 
 print(CSFloat)
 
@@ -118,9 +118,9 @@ commissionGP = "5% + €0.70"
 withoutCommissionGP = priceGP
 withCommissionGP = round(((withoutCommissionGP)*1.05 + 0.7),2)
 
-limitsGP = "+"
+limitsGP = "In"
 
-GamerPay.extend([item,withoutCommissionGP, commissionGP, withCommissionGP, limitsGP])
+GamerPay.extend(["GamerPay: ", withoutCommissionGP, commissionGP, withCommissionGP, limitsGP])
 
 print(GamerPay)
 
@@ -151,11 +151,23 @@ minSB = 1
 maxSB = 7500
 
 if 1<=withoutCommissionSB<=7500:
-    limitsSB = "+"
+    limitsSB = "In"
 else:
-    limitsSB = "-"
+    limitsSB = "Out"
 
-SkinBaron.extend([item, withoutCommissionSB, commissionSB, withCommissionSB, limitsSB])
+SkinBaron.extend(["SkinBaron: ", withoutCommissionSB, commissionSB, withCommissionSB, limitsSB])
 
 print(SkinBaron)
 
+title = []
+title.extend(["Market Place", "Price Without Commission (€/Eur)", "Commission", "Price With Commission (€/Eur)", "Price In/Out of Deposit Range"])
+wb = Workbook()
+result = wb.active
+
+result.append(title)
+result.append(DMarket)
+result.append(CSFloat)
+result.append(GamerPay)
+result.append(SkinBaron)
+
+wb.save("result.xlsx")
