@@ -15,8 +15,18 @@ service = Service()
 option = webdriver.ChromeOptions()
 driver = webdriver.Chrome(service=service, options=option)
 
+urlExchangeRate = "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html"
+driver.get(urlExchangeRate)
+time.sleep(2)
+exchangeRateFind = driver.find_element(By.XPATH, '//*[@id="main-wrapper"]/main/div[3]/div[2]/div/div/table/tbody/tr[1]/td[3]/a/span')
+time.sleep(4)
+exchageRateGet = exchangeRateFind.get_attribute('innerText')
+exchangeRate = float(exchageRateGet)
+
 DMarket=[]
+
 urlDM = "https://dmarket.com/ingame-items/item-list/csgo-skins"
+
 driver.get(urlDM)
 time.sleep(2)
 SearchDM = driver.find_element(By.CLASS_NAME, "o-filter__searchInput")
@@ -29,17 +39,6 @@ priceFindDM = driver.find_element(By.CLASS_NAME, "c-asset__priceNumber")
 priceGetDM = priceFindDM.get_attribute('innerText')
 priceDM = float(re.sub('[^0-9.]', '', priceGetDM))
 print(priceDM)
-
-urlValutasKurss = "https://www.bank.lv/statistika/dati-statistika/valutu-kursi/aktualie"
-driver.get(urlValutasKurss)
-time.sleep(2)
-acceptCookies1 = driver.find_element(By.CLASS_NAME, "status")
-acceptCookies1.click()
-time.sleep(2)
-exchangeRateFind = driver.find_element(By.XPATH, '//*[@id="period2024-01-08"]/div[2]/div/div/div/table/tbody/tr[29]/td[3]')
-time.sleep(4)
-exchageRateGet = exchangeRateFind.get_attribute('innerText')
-exchangeRate = float(exchageRateGet)
 
 commissionDm = "3.85% + 0.27€"
 
@@ -57,3 +56,41 @@ else:
 DMarket.extend([item, withoutCommissionDM, commissionDm, withCommissionDM, limitsDM])
 
 print(DMarket)
+
+CSFloat = []
+
+urlCSFloat = "https://csfloat.com/"
+
+driver.get(urlCSFloat)
+time.sleep(2)
+changeCurrencyCSFloat = driver.find_element(By.XPATH, '//*[@id="mat-select-0"]/div/div[2]/div')
+changeCurrencyCSFloat.click()
+CurrencyCSFloatToUSD = driver.find_element(By.XPATH, '//*[@id="mat-option-0"]/span')
+CurrencyCSFloatToUSD.click()
+searchCSFloat = driver.find_element(By.ID, "mat-input-0")
+time.sleep(2)
+searchCSFloat.clear()
+searchCSFloat.send_keys(item)
+searchCSFloat.send_keys(Keys.ENTER)
+time.sleep(2)
+
+priceFindCSFloat = driver.find_element(By.CLASS_NAME, "price.ng-star-inserted")
+priceGetCSFloat = priceFindCSFloat.get_attribute('innerText')
+priceCSFloat = float(re.sub('[^0-9.]', '', priceGetCSFloat))
+
+commissionCSFloat = "2.8% + 0.27€"
+
+withoutCommissionCSFloat = round((priceCSFloat/exchangeRate),2)
+withCommissionCSFloat = round(((withoutCommissionCSFloat)*1.028 + 0.27),2)
+
+minCSFloat = 5/exchangeRate
+maxCSFloat = 10000/exchangeRate
+
+if minCSFloat<=withoutCommissionCSFloat<=maxCSFloat:
+    limitsCSFloat = "+"
+else:
+    limitsCSFloat = "-"
+
+CSFloat.extend([item, withoutCommissionCSFloat, commissionCSFloat, withCommissionCSFloat, limitsCSFloat])
+
+print(CSFloat)
