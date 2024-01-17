@@ -35,7 +35,8 @@ Lietotājam tiek prasīts ievadīt vēlāmā In-game item nosaukumu un kvalitāt
 ### 1. Webdriver inicialiizācija Python:
 
 - Inicializē Google Chrome pārlūkprogrammu, izmantojot Selenium WebDriver.
-- Izmanto papildu komponentes, piemēram, Service un ChromeOptions
+
+- Izmanto papildu komponentes, piemēram, Service un ChromeOptions.
 
 ### 2. Ievade:
 
@@ -48,13 +49,15 @@ Lietotājam tiek prasīts ievadīt vēlāmā In-game item nosaukumu un kvalitāt
 - Izmantojot get() metodi, tiek atvērtas katra tīmekļa vietne, un automātiski tiek veikta meklēšana pēc vajadzīgajiem elementiem un informācijas.
 
     - Valūtas kursa meklēšana
+
     - Cenu meklēšana salīdzināšanai:
+
         - Ja ir nepieciešams programma apstiprina sīkdatnes.
         - Tālāk programma meklē ievades lauku jeb "Search Bar", kurā tiek ierakstīts lietotāja vēlāmais priekšmets.
         - Tā kā zināms, ka atbilstoša priekšmeta izdevīgākais piedāvājums atradīsies pats pirmais mājaslapas kreisajā pusē, tā elementa iekšējais teksts tiek nolasīts.
 
-- Meklēšanai tika izmantots "By.CLASS_NAME", "By.XPATH", "By.ID" un "By.CSS_SELECTOR"
-- Nolasīšanai tika izmantots get_attribute()
+- Meklēšanai tika izmantots "By.CLASS_NAME", "By.XPATH", "By.ID" un "By.CSS_SELECTOR".
+- Nolasīšanai tika izmantots get_attribute().
 
 ### 4. Datu apstrāde:
 
@@ -68,7 +71,7 @@ Lietotājam tiek prasīts ievadīt vēlāmā In-game item nosaukumu un kvalitāt
 
 - Izmantojot extend() visi dati tiek salikti sarakstos.
 
-### 5. Datu ievietošana Excel datnē
+### 5. Datu ievietošana Excel datnē:
 
 - Tiek izveidots saraksts ar virsrakstiem.
 
