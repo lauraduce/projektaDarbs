@@ -66,7 +66,7 @@ Lietotājam tiek prasīts ievadīt vēlāmā In-game item nosaukumu un kvalitāt
 
 - Tiek pārbaudīts, vai cena ir noteiktajā depozīta diapazona. 
 
-- Izmantojo extend() visi dati tiek salikti sarakstos.
+- Izmantojot extend() visi dati tiek salikti sarakstos.
 
 ### 5. Datu ievietošana Excel datnē
 
