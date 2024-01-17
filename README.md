@@ -10,7 +10,7 @@ Programmas mērķis ir sniegt lietotājam iespēju vienkārši un efektīvi sal�
 
 Lietotājam tiek prasīts ievadīt vēlāmā In-game item nosaukumu un kvalitāti. Pēc ievades programma automātiski pārbauda cenu tīmekļa vietnēs, kas, ja nepieciešams, izmantojot Eiropas Centrālās bankas kursu, tiek pārveidotas no dolāriem uz eiro. Rezultātos tiek iekļauta informācija par In-game item cenu, komisijas lielumu, kā arī aprēķināta cena ar komisiju. Tāpāt tiek sniegta informācija par to, vai In-game item iekļaujas vai izkrīt no attiecīgās mājaslapas depozīta diapazona. Visi rezultāti tiek saglabāti Excel datnē, nodrošinot lietotājus ar pārskatāmu informāciju par labākajiem piedāvājumiem.
 
-[Saite uz programmas testu un rezultātu.] (https://www.youtube.com/watch?v=rG6ZBmdNeJQ)
+[Saite uz programmas testu un rezultātu.](https://www.youtube.com/watch?v=rG6ZBmdNeJQ)
 
 ## **Python bibliotēku apraksts**
 
@@ -32,16 +32,16 @@ Lietotājam tiek prasīts ievadīt vēlāmā In-game item nosaukumu un kvalitāt
 
 ## **Metožu apraksts**
 
-# 1. Webdriver inicialiizācija Python:
+### 1. Webdriver inicialiizācija Python:
 
 - Inicializē Google Chrome pārlūkprogrammu, izmantojot Selenium WebDriver.
 - Izmanto papildu komponentes, piemēram, Service un ChromeOptions
 
-# 2. Ievade:
+### 2. Ievade:
 
 - Tiek lūgts lietotājam ievadīt priekšmeta nosaukumu un kvalitāti.
 
-# 3. Tīmekļa vietņu atvēršana un satura meklēšana:
+### 3. Tīmekļa vietņu atvēršana un satura meklēšana:
 
 - Programma izmanto WebDriver, lai atvērtu tīmekļa vietnes.
 
@@ -56,7 +56,7 @@ Lietotājam tiek prasīts ievadīt vēlāmā In-game item nosaukumu un kvalitāt
 - Meklēšanai tika izmantots "By.CLASS_NAME", "By.XPATH", "By.ID" un "By.CSS_SELECTOR"
 - Nolasīšanai tika izmantots get_attribute()
 
-# 4. Datu apstrāde:
+### 4. Datu apstrāde:
 
 - Katrai tīmekļa vietnei tike izveidots saraksts, kurā tiks saglabāti visi dati.
 
@@ -68,7 +68,7 @@ Lietotājam tiek prasīts ievadīt vēlāmā In-game item nosaukumu un kvalitāt
 
 - Izmantojo extend() visi dati tiek salikti sarakstos.
 
-# 5. Datu ievietošana Excel datnē
+### 5. Datu ievietošana Excel datnē
 
 - Tiek izveidots saraksts ar virsrakstiem.
 
