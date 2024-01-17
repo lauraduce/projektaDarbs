@@ -8,8 +8,8 @@ from selenium.webdriver.common.keys import Keys
 import time
 import re
 from openpyxl import Workbook, load_workbook
-print("Ievadiet valamas lietas nosaukumu un kvalitati:")
-item= input()
+print("Ievadiet velamas lietas nosaukumu un kvalitati (piem. Butterfly Knife Autotronic Field Tested):")
+item = input()
 
 service = Service()
 option = webdriver.ChromeOptions()
@@ -17,28 +17,24 @@ driver = webdriver.Chrome(service=service, options=option)
 
 urlExchangeRate = "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html"
 driver.get(urlExchangeRate)
-time.sleep(2)
-exchangeRateFind = driver.find_element(By.XPATH, '//*[@id="main-wrapper"]/main/div[3]/div[2]/div/div/table/tbody/tr[1]/td[3]/a/span')
-time.sleep(4)
+
+exchangeRateFind = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, '//*[@id="main-wrapper"]/main/div[3]/div[2]/div/div/table/tbody/tr[1]/td[3]/a/span')))
 exchageRateGet = exchangeRateFind.get_attribute('innerText')
 exchangeRate = float(exchageRateGet)
 
 DMarket=[]
 
 urlDM = "https://dmarket.com/ingame-items/item-list/csgo-skins"
-
 driver.get(urlDM)
-time.sleep(2)
-searchDM = driver.find_element(By.CLASS_NAME, "o-filter__searchInput")
+
+searchDM = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, "o-filter__searchInput")))
 searchDM.clear()
 searchDM.send_keys(item)
+
 time.sleep(2)
-
-
-priceFindDM = driver.find_element(By.CLASS_NAME, "c-asset__priceNumber")
+priceFindDM = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, "c-asset__priceNumber")))
 priceGetDM = priceFindDM.get_attribute('innerText')
 priceDM = float(re.sub('[^0-9.]', '', priceGetDM))
-print(priceDM)
 
 commissionDm = "3.85% + €0.27"
 
@@ -55,61 +51,22 @@ else:
 
 DMarket.extend(["DMarket: ", withoutCommissionDM, commissionDm, withCommissionDM, limitsDM])
 
-print(DMarket)
-
-CSFloat = []
-
-urlCSF = "https://csfloat.com/"
-
-driver.get(urlCSF)
-time.sleep(2)
-changeCurrencyCSF = driver.find_element(By.XPATH, '//*[@id="mat-select-0"]/div/div[2]/div')
-changeCurrencyCSF.click()
-CurrencyCSFToUSD = driver.find_element(By.XPATH, '//*[@id="mat-option-0"]/span')
-CurrencyCSFToUSD.click()
-searchCSF = driver.find_element(By.ID, "mat-input-0")
-time.sleep(2)
-searchCSF.clear()
-searchCSF.send_keys(item)
-searchCSF.send_keys(Keys.ENTER)
-time.sleep(2)
-
-priceFindCSF = driver.find_element(By.CLASS_NAME, "price.ng-star-inserted")
-priceGetCSF = priceFindCSF.get_attribute('innerText')
-priceCSFloat = float(re.sub('[^0-9.]', '', priceGetCSF))
-
-commissionCSF = "2.8% + €0.27"
-
-withoutCommissionCSF = round((priceCSFloat/exchangeRate),2)
-withCommissionCSF = round(((withoutCommissionCSF)*1.028 + 0.27),2)
-
-minCSF = 5/exchangeRate
-maxCSF = 10000/exchangeRate
-
-if minCSF<=withoutCommissionCSF<=maxCSF:
-    limitsCSF = "In"
-else:
-    limitsCSF = "Out"
-
-CSFloat.extend(["CSFloat: ", withoutCommissionCSF, commissionCSF, withCommissionCSF, limitsCSF])
-
-print(CSFloat)
+#print(DMarket)
 
 GamerPay = []
 
 urlGP = "https://gamerpay.gg/"
 driver.get(urlGP)
-time.sleep(2)
-acceptCookiesGP= driver.find_element(By.ID,"CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll")
+
+acceptCookiesGP= WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID,"CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll")))
 acceptCookiesGP.click()
-time.sleep(2)
-searchGP = driver.find_element(By.ID, "searchBar")
-time.sleep(2)
+
+searchGP = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, "searchBar")))
 searchGP.send_keys(item)
 searchGP.send_keys(Keys.ENTER)
-time.sleep(8)
 
-priceFindGP = driver.find_element(By.CLASS_NAME, "ItemCardNewBody_pricePrimary__Tpkw7")
+time.sleep(2)
+priceFindGP = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, "ItemCardNewBody_pricePrimary__Tpkw7")))
 priceGetGP = priceFindGP.get_attribute('innerText')
 priceGP = float(re.sub('[^0-9.]', '', priceGetGP))
 
@@ -122,23 +79,22 @@ limitsGP = "In"
 
 GamerPay.extend(["GamerPay: ", withoutCommissionGP, commissionGP, withCommissionGP, limitsGP])
 
-print(GamerPay)
+#print(GamerPay)
 
 SkinBaron = []
 
 urlSB = "https://skinbaron.de/en"
 driver.get(urlSB)
-time.sleep(2)
-acceptCookiesSB = driver.find_element(By.ID,"onetrust-accept-btn-handler")
+
+acceptCookiesSB = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID,"onetrust-accept-btn-handler")))
 acceptCookiesSB.click()
-time.sleep(2)
-searchSB = driver.find_element(By.CSS_SELECTOR, 'input[pathtodata="variants"]')
-time.sleep(2)
+
+searchSB = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'input[pathtodata="variants"]')))
 searchSB.send_keys(item)
 searchSB.send_keys(Keys.ENTER)
-time.sleep(4)
 
-priceFindSB = driver.find_element(By.XPATH, '//*[@id="offer-container"]/ul/li[1]/sb-offer-card/div/div/div[3]/div/div/span[3]')
+time.sleep(2)
+priceFindSB = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, '//*[@id="offer-container"]/ul/li[1]/sb-offer-card/div/div/div[3]/div/div/span[3]')))
 priceGetSB = priceFindSB.get_attribute('innerText')
 priceSB = float(re.sub('[^0-9.]', '', priceGetSB))
 
@@ -157,17 +113,21 @@ else:
 
 SkinBaron.extend(["SkinBaron: ", withoutCommissionSB, commissionSB, withCommissionSB, limitsSB])
 
-print(SkinBaron)
+#print(SkinBaron)
 
 title = []
 title.extend(["Market Place", "Price Without Commission (€/Eur)", "Commission", "Price With Commission (€/Eur)", "Price In/Out of Deposit Range"])
 wb = Workbook()
 result = wb.active
 
+result.merge_cells(start_row=1, start_column=1, end_row=1, end_column=len(title))
+result.cell(row=1, column=1, value=item)
+
 result.append(title)
 result.append(DMarket)
-result.append(CSFloat)
 result.append(GamerPay)
 result.append(SkinBaron)
 
 wb.save("result.xlsx")
+wb.close()
+driver.quit()
